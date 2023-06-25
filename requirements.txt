@@ -1,0 +1,6 @@
+uvicorn
+bson
+fastapi
+pydantic
+sqlalchemy
+typing_extensions
