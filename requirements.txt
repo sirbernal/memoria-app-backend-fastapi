@@ -1,6 +1,5 @@
 uvicorn
 passlib
-bson
 fastapi
 pydantic
 sqlalchemy
