@@ -1,4 +1,5 @@
 uvicorn
+passlib
 bson
 fastapi
 pydantic
