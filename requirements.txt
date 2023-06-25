@@ -5,3 +5,4 @@ pydantic
 sqlalchemy
 typing_extensions
 pymongo
+psycopg2
