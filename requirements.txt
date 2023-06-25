@@ -1,6 +1,6 @@
 uvicorn
 passlib
-fastapi
+fastapi[all]
 pydantic
 sqlalchemy
 typing_extensions
