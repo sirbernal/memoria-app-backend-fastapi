@@ -16,13 +16,15 @@ import os
 app = FastAPI()
 
 
+MONGO_URL = os.environ.get('MONGODB_URL', 'mongodb://localhost:27017/')
+POSTGRES_URL = os.environ.get('POSTGRES_URL', 'postgresql://postgres:postgres@localhost:5432/users')
+
 # Conexión a la base de datos
-SQLALCHEMY_DATABASE_URL = 'postgresql://postgres:postgres@localhost:5432/users'
-engine = create_engine(SQLALCHEMY_DATABASE_URL)
+engine = create_engine(POSTGRES_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 # Conectarse a MongoDB
-client = MongoClient( os.environ.get('MONGODB_URL', 'mongodb://localhost:27017/'))
+client = MongoClient(MONGO_URL)
 db = client["sesiones"]
 
 # Obtener la colección "sesiones"
