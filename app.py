@@ -11,6 +11,7 @@ import uvicorn
 from typing_extensions import Annotated
 from pymongo import MongoClient
 from Sesiones import Sesion
+import os
 
 app = FastAPI()
 
@@ -21,7 +22,7 @@ engine = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 # Conectarse a MongoDB
-client = MongoClient("mongodb://localhost:27017/")
+client = MongoClient( os.environ.get('MONGODB_URL', 'mongodb://localhost:27017/'))
 db = client["sesiones"]
 
 # Obtener la colección "sesiones"
