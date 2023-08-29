@@ -88,5 +88,18 @@ async def update_sesion(sesion_id: str, sesion: Sesion):
     else:
         raise HTTPException(status_code=500, detail="Error al insertar el objeto en la base de datos")
 
+@app.post("/sesiones/")
+async def create_sesion(sesion: Sesion):
+    sesion_dict = sesion.dict()
+    result = sesiones.insert_one(sesion_dict)
+    return {"id": str(result.inserted_id)}
+
+@app.delete("/sesiones/{sesion_id}")
+async def create_sesion(sesion_id: str):
+    obj_id = ObjectId(sesion_id)
+    result = sesiones.delete_one({'_id': obj_id})
+    return {"deleted_count": result.deleted_count}
+
+
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
