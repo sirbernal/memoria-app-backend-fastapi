@@ -8,3 +8,4 @@ class Sesion(BaseModel):
     description: str
     sessions_url: str
     training_details: str
+    link_videos: str = None

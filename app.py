@@ -11,6 +11,7 @@ import uvicorn
 from typing_extensions import Annotated
 from pymongo import MongoClient
 from Sesiones import Sesion
+from TrainerContact import TrainerContact
 import os
 
 app = FastAPI()
@@ -27,9 +28,9 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 client = MongoClient(MONGO_URL)
 db = client["sesiones"]
 
-# Obtener la colección "sesiones"
+# Obtener las colecciones
 sesiones = db["sessions"]
-
+trainer_contacts = db["trainer_contact"]
 
 origins = [
     "http://localhost:3000"
@@ -99,6 +100,14 @@ async def create_sesion(sesion_id: str):
     obj_id = ObjectId(sesion_id)
     result = sesiones.delete_one({'_id': obj_id})
     return {"deleted_count": result.deleted_count}
+
+# Definir ruta para obtener todas los contactos de entrenadores
+@app.get("/trainer_contact")
+async def get_trainer_contact():
+    trainer_contact = trainer_contacts.find()
+    result = [ doc.update({"id": str(doc.pop("_id"))}) or doc for doc in trainer_contact] 
+    return result
+
 
 
 if __name__ == "__main__":
